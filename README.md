@@ -8,7 +8,7 @@
 + **JavaScript**
 + **Express**
 + **socket.io**
-+ **election** _for desktop app(optional)_
++ **electron** _for desktop app(optional)_
 ---
 ## 규칙
 개발 진행 중 지속적으로 바뀔 수 있음.

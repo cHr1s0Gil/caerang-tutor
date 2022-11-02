@@ -61,5 +61,16 @@ https://codepen.io/Markshall/pen/PoZJRve
 ---
 # request 방법
 ```
+![image](https://user-images.githubusercontent.com/101651909/199499274-6979aaf6-a86b-435a-b182-4c205cc1e27b.png)
+서버도메인/func 으로 get 요청을 보낼 때 searchType 과 keyWord 라는 Query 를 함께 보내면 된다.
+
+![image](https://user-images.githubusercontent.com/101651909/199500469-a8a43774-007d-4c48-bc4f-389cb41192ad.png)
+EditTextView 에 addTextChangedListener 를 구현해서 EditText 에 입력이 들어올 때 get 요청을 보낸다.(get 요청이 너무 빈번하게 일어나서 문제가 있을지도)
+LiveData 를 사용했기 때문에 Observer 를 통해 get 요청 결과를 관찰한다.
+## Postman get요청 예시
+![image](https://user-images.githubusercontent.com/101651909/199499795-089e5de7-e616-4ab3-92ec-6df9adc28b9b.png)
+
+
+
 
 ```

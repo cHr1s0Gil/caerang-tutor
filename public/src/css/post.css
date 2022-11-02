@@ -1,0 +1,35 @@
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background: #DEDEDE;
+  color: #5a6674;
+  font-size: 13px;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+}
+
+.title-input {
+    position: relative;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.content-input {
+    resize: none;
+    padding: 10px;
+    border-radius: 15px;
+}

@@ -141,8 +141,6 @@ dist
 .svelte-kit
 
 # 디렉토리
-model/
-server/
 DB/
 
 # End of https://www.toptal.com/developers/gitignore/api/node

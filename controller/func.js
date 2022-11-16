@@ -1,50 +1,49 @@
 const funcModel = require("../model/func");
-
-const type = {
-    FUNC_NAME: "funcName",
-    AUTHOR: "author"
-};
+const funcExistModel = require("../model/funcExist");
 
 module.exports = {
-    getAllFunc: async (req, res) => {
+    getAllFuncCtrl: async (req, res) => {
         try {
-            const response = await funcModel.getAllFunc();
-            res.send(response);
-        } catch(error) {
+            const allFuncResponse = await funcModel.getAllFunc();
+            res.send(allFuncResponse);
+        } catch (error) {
+            res.send("함수 검색 오류 발생");
             console.error(error);
         }
     },
 
-    getFunc: async (req, res) => {
-        const query = req.query;
-        const searchType = query.searchType;
-        const keyWord = query.keyWord;
-
+    postFuncCtrl: async (req, res) => {
         try {
-            const response = await funcModel.getFunc(searchType, keyWord);
-            res.send(response);
-        } catch(error) {
+            const data = req.body;
+            req.body.date = require("../server/service/date").getCurrentTime();
+            const values = [];
+            for (key in data)
+                values.push(data[key]);
+
+            const postFuncResponse = await funcModel.postFunc(values);
+            res.send(postFuncResponse);
+        } catch (error) {
+            res.send("함수 추가 오류 발생");
             console.error(error);
         }
     },
 
-    postFunc: async (req, res) => {
-        const query = req.query;
-        const params = {
-            funcName: query.funcName,
-            description: query.description,
-            content: query.content,
-            author: query.author,
-            language: query.language,
-            date: query.date
-        }
+    updateFuncCtrl: async (req, res) => {
 
+    },
+
+    deleteFuncCtrl: async (req, res) => {
         try {
-        const result = await funcModel.postFunc(params);
-        res.send(result);
-        } catch(error) {
+            const fCode = req.body.fCode;
+            const existFuncResponse = await funcExistModel.funcExistByCode(fCode);
+            if (existFuncResponse) {
+                const deleteFuncResonse = await funcModel.deleteFunc(fCode);
+                res.send(deleteFuncResonse);
+            }
+            else res.send("존재하지 않는 함수 입니다.");
+        } catch (error) {
+            res.send("함수 삭제 오류 발생");
             console.error(error);
         }
     }
-}
-
+};

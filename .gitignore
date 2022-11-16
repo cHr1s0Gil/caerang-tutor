@@ -43,7 +43,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
@@ -144,5 +143,6 @@ dist
 # 디렉토리
 model/
 server/
+DB/
 
 # End of https://www.toptal.com/developers/gitignore/api/node

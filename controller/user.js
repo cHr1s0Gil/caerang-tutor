@@ -1,13 +1,20 @@
 const cryptoModel = require("../server/service/crypto");
 const userModel = require("../model/user");
+const userExistModel = require("../model/userExist");
 
 module.exports = {
     signUpCtrl: async (req, res) => {
         try {
+            const userInfo = [req.body.studentId, req.body.name];
+            const userExistResponse = await userExistModel.userExist(userInfo);
+            if(userExistResponse) {
+                res.send("이미 존재하는 사용자 입니다.");
+                return;
+            }
+
             const uuidv4 = cryptoModel.createUuidv4();
             const originPwd = req.body.password;
             const cryptoPwd = await cryptoModel.createHashPassword(originPwd);
-            console.log(req.body.studentId);
             const userData = {
                 uid: uuidv4,
                 name: req.body.name,
@@ -18,8 +25,8 @@ module.exports = {
             };
 
             const values = [];
-            for (k in data)
-                values.push(data[k]);
+            for (k in userData)
+                values.push(userData[k]);
 
             const signUpResponse = await userModel.doSignUp(values);
             res.send(signUpResponse);

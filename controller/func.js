@@ -12,8 +12,75 @@ module.exports = {
         }
     },
 
+    getFuncByfCodeCrtl: async (req, res) => {
+        try {
+            const fCode = req.params.fCode;
+            const getFuncResponse = await funcModel.getFuncByfCode(fCode);
+            if(getFuncResponse.length === 0) {
+                res.send("함수가 존재하지 않습니다.");
+                return;
+            }
+            res.send(getFuncResponse);
+        } catch(error) {
+            res.send("함수 검색 오류 발생");
+            console.error(error);
+        }
+    },
+
+    getFuncByFuncNameCtrl: async (req, res) => {
+        try {
+            const funcName = req.params.funcName;
+            const getFuncResponse = await funcModel.getFuncByFuncName(funcName);
+            if(getFuncResponse.length === 0) {
+                res.send("함수가 존재하지 않습니다.");
+                return;
+            }
+            res.send(getFuncResponse);
+        } catch(error) {
+            res.send("함수 검색 오류 발생");
+            console.error(error);
+        }
+    },
+
+    getFuncByAuthorCtrl: async (req, res) => {
+        try {
+            const author = req.params.author;
+            const getFuncResponse = await funcModel.getFuncByAuthor(author);
+            if(getFuncResponse.length === 0) {
+                res.send("함수가 존재하지 않습니다.");
+                return;
+            }
+            res.send(getFuncResponse);
+        } catch(error) {
+            res.send("함수 검색 오류 발생");
+            console.error(error);
+        }
+    },
+
+    getFuncByLanguageCtrl: async (req, res) => {
+        try {
+            const language = req.params.language;
+            const getFuncResponse = await funcModel.getFuncByLanguage(language);
+            if(getFuncResponse.length === 0) {
+                res.send("함수가 존재하지 않습니다.");
+                return;
+            }
+            res.send(getFuncResponse);
+        } catch(error) {
+            console.error(error);
+        }
+    },
+
     postFuncCtrl: async (req, res) => {
         try {
+            const existValue = [req.body.funcName, req.body.author, req.body.language];
+            const postExistResponse = await funcExistModel.postFuncExist(existValue);
+
+            if (postExistResponse) {
+                res.send("해당 함수가 이미 존재합니다.");
+                return;
+            }
+
             const data = req.body;
             req.body.date = require("../server/service/date").getCurrentTime();
             const values = [];
@@ -29,7 +96,26 @@ module.exports = {
     },
 
     updateFuncCtrl: async (req, res) => {
+        try {
+            const fCode = req.body.fCode;
+            if(fCode === undefined) {
+                res.send("함수 코드가 잘못되었습니다.");
+                return;
+            }
+            const funcExistResponse = await funcExistModel.funcExistByCode(fCode);
+            if (!funcExistResponse) {
+                res.send("함수가 존재하지 않습니다.");
+                return;
+            }
 
+            const data = [req.body.funcName, req.body.detail, req.body.content, require("../server/service/date").getCurrentTime(), fCode];
+            const updateFuncResponse = await funcModel.updateFunc(data);
+
+            res.send(updateFuncResponse);
+            
+        } catch (error) {
+            console.error(error);
+        }
     },
 
     deleteFuncCtrl: async (req, res) => {

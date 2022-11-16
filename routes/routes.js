@@ -14,7 +14,12 @@ router.post("/user/login", userController.loginCrtl);
 
 /* func 컨트롤러 */
 router.get("/func/all", funcController.getAllFuncCtrl);
+router.get("/func/funcName/:funcName", funcController.getFuncByFuncNameCtrl);
+router.get("/func/fCode/:fCode", funcController.getFuncByfCodeCrtl);
+router.get("/func/author/:author", funcController.getFuncByAuthorCtrl);
+router.get("/func/language/:language", funcController.getFuncByLanguageCtrl);
 router.post("/func", funcController.postFuncCtrl);
+router.put("/func", funcController.updateFuncCtrl);
 router.delete("/func", funcController.deleteFuncCtrl);
 
 module.exports = router;

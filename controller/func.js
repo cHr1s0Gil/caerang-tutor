@@ -16,10 +16,7 @@ module.exports = {
         try {
             const fCode = req.params.fCode;
             const getFuncResponse = await funcModel.getFuncByfCode(fCode);
-            if(getFuncResponse.length === 0) {
-                res.send("함수가 존재하지 않습니다.");
-                return;
-            }
+
             res.send(getFuncResponse);
         } catch(error) {
             res.send("함수 검색 오류 발생");
@@ -31,10 +28,7 @@ module.exports = {
         try {
             const funcName = req.params.funcName;
             const getFuncResponse = await funcModel.getFuncByFuncName(funcName);
-            if(getFuncResponse.length === 0) {
-                res.send("함수가 존재하지 않습니다.");
-                return;
-            }
+
             res.send(getFuncResponse);
         } catch(error) {
             res.send("함수 검색 오류 발생");
@@ -46,10 +40,7 @@ module.exports = {
         try {
             const author = req.params.author;
             const getFuncResponse = await funcModel.getFuncByAuthor(author);
-            if(getFuncResponse.length === 0) {
-                res.send("함수가 존재하지 않습니다.");
-                return;
-            }
+
             res.send(getFuncResponse);
         } catch(error) {
             res.send("함수 검색 오류 발생");
@@ -61,10 +52,7 @@ module.exports = {
         try {
             const language = req.params.language;
             const getFuncResponse = await funcModel.getFuncByLanguage(language);
-            if(getFuncResponse.length === 0) {
-                res.send("함수가 존재하지 않습니다.");
-                return;
-            }
+
             res.send(getFuncResponse);
         } catch(error) {
             console.error(error);

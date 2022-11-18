@@ -47,12 +47,16 @@ module.exports = {
             }
 
             const cryptoPwd = await cryptoModel.createHashPassword(req.body.password, userExistResponse[0].salt);
-            if (cryptoPwd.password === userExistResponse[0].비밀번호)
-                res.send(userExistResponse[0]);
-            else
-                res.send({
-                    "errMsg": "비밀번호가 일치하지 않습니다."
-                });
+            if (cryptoPwd.password === userExistResponse[0].비밀번호) {
+                const userResponse = {
+                    "name": userExistResponse[0].이름,
+                    "password": userExistResponse[0].비밀번호,
+                    "studentId": userExistResponse[0].학번,
+                    "team": userExistResponse[0].소속팀
+                };
+                res.send(userResponse);
+            }
+            else res.send({ "errMsg": "비밀번호가 일치하지 않습니다." });
 
         } catch (error) {
                 res.send(error);

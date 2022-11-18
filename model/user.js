@@ -26,7 +26,7 @@ module.exports = {
                 pool.getConnection((error, connection) => {
                     if (error) throw error;
 
-                    const sql = "SELECT 비밀번호, salt FROM 유저 WHERE 학번 = ?";
+                    const sql = "SELECT * FROM 유저 WHERE 학번 = ?";
                     connection.query(sql, data, (error, row) => {
                         if (error) reject(error);
                         resolve(row);

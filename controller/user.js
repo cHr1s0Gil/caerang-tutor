@@ -7,7 +7,7 @@ module.exports = {
         try {
             const userInfo = [req.body.studentId, req.body.name];
             const userExistResponse = await userExistModel.userExist(userInfo);
-            if(userExistResponse) {
+            if (userExistResponse) {
                 res.send("이미 존재하는 사용자 입니다.");
                 return;
             }
@@ -48,17 +48,19 @@ module.exports = {
 
             const cryptoPwd = await cryptoModel.createHashPassword(req.body.password, userExistResponse[0].salt);
             if (cryptoPwd.password === userExistResponse[0].비밀번호)
-                res.send(true);
+                res.send(userExistResponse[0]);
             else
-                res.send("비밀번호가 일치하지 않습니다.");
+                res.send({
+                    "errMsg": "비밀번호가 일치하지 않습니다."
+                });
 
         } catch (error) {
-            res.send(error);
-            console.error(error);
+                res.send(error);
+                console.error(error);
+            }
+        },
+
+        withdrawalCtrl: (req, res) => {
+
         }
-    },
-
-    withdrawalCtrl: (req, res) => {
-
-    }
-};
+    };

@@ -69,13 +69,10 @@ module.exports = {
                 return;
             }
 
-            const data = req.body;
-            req.body.date = require("../server/service/date").getCurrentTime();
-            const values = [];
-            for (key in data)
-                values.push(data[key]);
-
-            const postFuncResponse = await funcModel.postFunc(values);
+            const currentTime = require("../server/service/date").getCurrentTime();
+            const data = [req.body.funcName, req.body.detail, req.body.content, req.body.author, req.body.language, currentTime];
+        
+            const postFuncResponse = await funcModel.postFunc(data);
             res.send(postFuncResponse);
         } catch (error) {
             res.send("함수 추가 오류 발생");
